@@ -125,7 +125,7 @@ class VoiceMessageView extends StatelessWidget {
 
   SizedBox _noises(ThemeData newTHeme) => SizedBox(
         height: 30,
-        width: controller.noiseWidth,
+        width: controller.width ?? controller.noiseWidth,
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -145,7 +145,7 @@ class VoiceMessageView extends StatelessWidget {
                 return Positioned(
                   left: controller.animController.value,
                   child: Container(
-                    width: controller.noiseWidth,
+                    width: controller.width ?? controller.noiseWidth,
                     height: 6.w(),
                     color:
                         notActiveSliderColor ?? backgroundColor.withOpacity(.4),
@@ -156,7 +156,7 @@ class VoiceMessageView extends StatelessWidget {
             Opacity(
               opacity: 0,
               child: Container(
-                width: controller.noiseWidth,
+                width: controller.width ?? controller.noiseWidth,
                 color: Colors.transparent.withOpacity(1),
                 child: Theme(
                   data: newTHeme,

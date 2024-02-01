@@ -48,6 +48,7 @@ class VoiceController extends MyTicker {
   StreamSubscription? positionStream;
   StreamSubscription? playerStateStream;
   double? downloadProgress = 0;
+  final double? width;
 
   /// Gets the current playback position of the voice.
   double get currentMillSeconds {
@@ -86,11 +87,12 @@ class VoiceController extends MyTicker {
     required this.onPlaying,
     this.onError,
     this.randoms,
+    this.width,
   }) {
     if (randoms?.isEmpty ?? true) _setRandoms();
     animController = AnimationController(
       vsync: this,
-      upperBound: noiseWidth,
+      upperBound: width ?? noiseWidth,
       duration: maxDuration,
     );
     init();
@@ -140,7 +142,7 @@ class VoiceController extends MyTicker {
     positionStream = _player.positionStream.listen((Duration p) async {
       if (!isDownloading) currentDuration = p;
 
-      final value = (noiseWidth * currentMillSeconds) / maxMillSeconds;
+      final value = ((width?? noiseWidth) * currentMillSeconds) / maxMillSeconds;
       animController.value = value;
       _updateUi();
       if (p.inMilliseconds >= maxMillSeconds) {
@@ -282,7 +284,7 @@ class VoiceController extends MyTicker {
   /// Changes the speed of the voice playback.
   void onChanging(double d) {
     currentDuration = Duration(milliseconds: d.toInt());
-    final value = (noiseWidth * d) / maxMillSeconds;
+    final value = ((width?? noiseWidth) * d) / maxMillSeconds;
     animController.value = value;
     _updateUi();
   }
