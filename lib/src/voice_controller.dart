@@ -274,7 +274,7 @@ class VoiceController extends MyTicker {
 
   void _setRandoms() {
     randoms = [];
-    for (var i = 0; i < 44; i++) {
+    for (var i = 0; i < 40; i++) {
       randoms!.add(5.74.w() * Random().nextDouble() + .26.w());
     }
   }
